@@ -1,0 +1,14 @@
+*.so
+*.a
+bin/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+*.ini
+*.cfg
+*.csv
+*.log
+install_manifest.txt
+cmake_install.cmake
+calibrator
+inc/version.h

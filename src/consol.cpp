@@ -130,6 +130,21 @@ void CConsol::Run()
 					}
 				break;
 			case '3':
+				printf("\r\n배율 0.000564 로 파일에 저장할까요? [y/N] ");
+				fflush(stdout);
+				for(int i=0;i<20;i++) {
+					m_pIotBox->m_fScaleFix[i]=0.000564f;
+					}
+				c2 = getKey();
+				if( c2=='y' || c2=='Y' ) {
+					SaveScaleCal();
+					nRet = system("sync");
+					nRet = system("systemctl restart sdaq");
+//					usleep(100000);
+					g_TaskMgr.SendMessage(TASK_ID_IOTBOX, MSG_EVENT, 1, 0);
+					}
+				break;
+			case '4':
 				m_pIotBox->m_nDisplay = 2;
 				c=getKey();
 				m_pIotBox->m_nDisplay = 0;
@@ -151,7 +166,7 @@ void CConsol::Run()
 					g_TaskMgr.SendMessage(TASK_ID_IOTBOX, MSG_EVENT, 1, 0);
 					}
 				break;
-			case '4':
+			case '5':
 				m_pIotBox->m_nDisplay = 2;
 				c=getKey();
 				m_pIotBox->m_nDisplay = 0;
@@ -185,8 +200,9 @@ char CConsol::print_Menu(void)
 	printf("   0. 드라이버 설치 및 데몬시작\n");
 	printf("   1. 보정파일 초기화\n");
 	printf("   2. 옾셋 탐색 (0V기준)\n");
-	printf("   3. 배율 탐색 (5V기준)\n");
-	printf("   4. 측정값 검사\n");	
+	printf("   3. 배율 설정 (0.000564)\n");
+	printf("   4. 배율 탐색 (5V기준)\n");
+	printf("   5. 측정값 검사\n");	
 	printf("\n");
 	printf("   x. 나가기\n");
 	printf("===============================\n");
